@@ -99,9 +99,27 @@ async function main(){
 
         //-------------------------------------------------------------------------------------------------------------
         //Finding document from collection2 use findOne()/find()
-        collection2.find({completed:false}).toArray().then((data)=>console.log(data)).catch((err)=>console.log(err));
+        // collection2.find({completed:false}).toArray().then((data)=>console.log(data)).catch((err)=>console.log(err));
 
-        collection2.findOne({_id: new ObjectId('663a5411e288c81699a0d7f5')}).then((data)=>console.log(data)).catch((err)=>console.log(err));
+        // collection2.findOne({_id: new ObjectId('663a5411e288c81699a0d7f5')}).then((data)=>console.log(data)).catch((err)=>console.log(err));
+
+        //-----------------------------------------------------------------
+        //updating single document or multiple documents
+        // collection.updateOne({_id: new ObjectId('663a514a09419aad391ec9cd')},{
+        //     $set:{
+        //         name: "Andrew",
+
+        //     }
+        // }).then((data)=>console.log("updated data ",data)).catch(err => console.log(err));
+
+        // collection.updateMany({single:true},{
+        //     $inc:{
+        //         age: 10,
+        //     }
+        // }).then(data => console.log(data)).catch(err => console.log(err));
+
+        //Delete one item or many
+        collection.deleteOne({_id: new ObjectId("663ad5134e91d7255affbd9b")}).then(data => console.log(data)).catch(err => console.log(err));
 
     }catch(err){
         console.log("connection failed", err);
