@@ -23,17 +23,16 @@ app.post('/users',(req,res)=>{
     })
 })
 
-//reading all users details
+//get all users details
 app.get('/users',(req,res)=>{
     userModel.find().then((data)=>{
-        console.log(data);
         res.status(200).send(data);
     }).catch((err)=>{
         res.status(500).send(err.message);
     })
 })
 
-//reading user by a specific user id
+//get a specific user by user id
 app.get("/users/:id",(req,res)=>{
     const user_given_id = req.params.id;
     console.log(user_given_id);
@@ -59,4 +58,26 @@ app.post('/task',(req,res)=>{
 })
 app.listen(port,()=>{
     console.log("Listing at ", port);
+})
+
+//get all created task
+app.get('/task',(req,res)=>{
+    taskModel.find().then((data)=>{
+        res.status(200).send(data);
+    }).catch((err)=>{
+        res.status(500).send(err.message)
+    })
+})
+
+//get a particular task by taskid
+app.get('/task/:id',(req,res)=>{
+    const taskId = req.params.id;
+    taskModel.findById(taskId).then((data)=>{
+        if(!data){
+           return res.status(400).send("Not Found");
+        }
+        res.status(200).send(data);
+    }).catch((err)=>{
+        res.status(500).send(err.message)
+    })
 })
