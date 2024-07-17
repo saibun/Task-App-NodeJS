@@ -101,7 +101,6 @@ app.patch('/users/:id', async (req, res) => {
         if(!data){
            return  res.status(404).send("NOT FOUND");
         }
-        console.log(data);
         res.status(200).send(data)
 
     }catch(err){
@@ -169,6 +168,30 @@ app.get('/task/:id', async (req, res) => {
     } catch (err) {
         res.status(500).send(err.message)
     }
+})
+
+app.patch('/task/:id', async(req,res)=>{
+    const id = req.params.id;
+    console.log(id);
+    const update_req = Object.keys(req.body);
+    console.log("properties", update_req);
+    const update_pr = ['desc','completed'];
+    const isValid = update_req.every((value)=> update_pr.includes(value)) ;
+    if(!isValid){
+        return res.status(400).send("Mismatch properties");
+    }
+    try{
+        const data = await taskModel.findByIdAndUpdate(id,req.body,{ new: true, runValidators: true});
+        console.log(data);
+        res.status(200).send(data);
+
+
+
+    }catch(err){
+        res.status(500).send(err);
+
+    }
+
 })
 
 app.listen(port, () => {
