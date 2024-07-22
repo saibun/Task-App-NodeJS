@@ -7,8 +7,13 @@ const userModel = require("./models/userModel");
 //import taskmodel
 const taskModel = require("./models/taskModel");
 
+const userRoute = require("./routers/userRouter");
+
 //parse JSON into javascript obj
 app.use(express.json());
+
+//register routers
+app.use(userRoute);
 
 //create method to add users
 app.post('/users', async (req, res) => {
