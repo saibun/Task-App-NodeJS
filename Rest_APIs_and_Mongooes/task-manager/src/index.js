@@ -109,6 +109,22 @@ app.patch('/users/:id', async (req, res) => {
 
 });
 
+//delete a user
+app.delete("/users/:id", async(req,res)=>{
+    console.log("id ", user_id);
+    try{
+        const user_delete_data = await userModel.findByIdAndDelete(user_id);
+        if(!user_delete_data){
+           return res.status(204)
+        }
+        res.status(200).send(user_delete_data);
+
+    }catch(err){
+        res.status(500).send(err)
+    }
+    
+})
+
 //------------------------------------- task related codes----------------------------
 //create a task for users
 app.post('/task', async (req, res) => {
@@ -192,6 +208,22 @@ app.patch('/task/:id', async(req,res)=>{
 
     }
 
+})
+
+//delete a task
+app.delete("/task/:id", async(req,res)=>{
+    const task_id = req.params.id;
+    try{
+        const task_delete_data = await taskModel.findByIdAndDelete(task_id);
+        if(!task_delete_data){
+           return res.status(204).send("Deleted")
+        }
+        res.status(200).send(task_delete_data);
+
+    }catch(err){
+        res.status(500).send(err)
+    }
+    
 })
 
 app.listen(port, () => {
