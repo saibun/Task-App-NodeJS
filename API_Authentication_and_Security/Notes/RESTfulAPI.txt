@@ -1,0 +1,45 @@
+REST => Represntational State Trasfer.
+API => Application Programming Interface.
+--------------------------------------------------------------------
+What is an API?
+Answer: An API (Application Programming Interface) is a set of rules, protocols, and tools that allows different software applications to communicate and interact with each other. It defines the methods and data formats that applications can use to request and exchange information.
+So we could say that Node provides us with APIs, it does things like FS enable us to build the applications we're trying to build. And we could also say that our NPM modules like Express provides us with APIs, which it does Express provides us with a set of tools that allow us to build software applications.
+----------------------------------------------------------------------------------------------
+How does an API work?
+Answer: APIs work by specifying a set of rules and protocols for communication between software applications. Typically, one application, known as the client, sends a request to another application, known as the server, over a network. The server processes the request and sends back a response, usually in a predefined data format such as JSON or XML.
+
+---------------------------------------------------------------------------------------------
+
+Representational State Transfer (REST) is an architectural style for designing networked applications. RESTful systems are characterized by a client-server architecture, statelessness, cacheability, a uniform interface, and a layered system.
+
+    Client-Server: client and server to evolve independently. The client is responsible for the user interface and user experience, while the server is responsible for storing and manipulating data and responding to client requests.
+
+    Statelessness: Each request from a client to the server must contain all the necessary information for the server to fulfill the request. The server doesn't store any client's session information. This constraint simplifies server implementation and improves scalability.
+
+    Uniform Interface: RESTful systems have a uniform interface between components. This includes using standard HTTP methods (GET, POST, PUT, DELETE) for CRUD (Create, Read, Update, Delete) operations, resource identification through URIs (Uniform Resource Identifiers), and representation of resources using standardized formats like JSON or XML.
+
+        /posts/1
+        Here, /posts is the base URI for blog posts, and 1 is the unique identifier for this particular blog post.
+
+        /users/johndoe
+        Here, /users is the base URI for users, and johndoe is the unique identifier for this users
+---------------------------------------------------------------------------------------------
+URI (Uniform Resource Identifier) is a generic term used to identify resources on the internet, and it encompasses both URLs (Uniform Resource Locators) and URNs (Uniform Resource Names).
+
+    URL (Uniform Resource Locator): A URL is a specific type of URI that provides the means to locate a resource on the internet by specifying its location. It consists of two main components: the protocol (such as HTTP, HTTPS, FTP) and the resource's location (such as a domain name or IP address), optionally followed by additional path and query parameters.
+
+    Example:
+    https://www.example.com/page.html
+    In this URL, https is the protocol, www.example.com is the domain name, and /page.html is the path to the specific resource.
+
+    URN (Uniform Resource Name): A URN is another type of URI that serves as a unique identifier for a resource, independent of its location. URNs are meant to persistently identify resources even if they are moved or renamed. Unlike URLs, URNs do not specify how to access the resource; they only provide a unique name or identifier for it.
+
+    Example:
+    urn:isbn:0451450523
+    In this URN, urn:isbn is the namespace identifier for International Standard Book Numbers (ISBNs), and 0451450523 is the specific ISBN identifying a book. This URN uniquely identifies the book regardless of where it is located.
+
+So, to summarize:
+
+A URI is a generic term for identifying resources on the internet.
+A URL is a type of URI that specifies the location of a resource.
+A URN is a type of URI that serves as a persistent and location-independent identifier for a resource
