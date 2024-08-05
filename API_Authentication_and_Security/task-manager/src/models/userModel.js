@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcryptjs")
+const jwt = require("jsonwebtoken");
 
 //create schema
 const userSchema = new mongoose.Schema(
@@ -45,9 +46,24 @@ const userSchema = new mongoose.Schema(
                     throw new Error("password can't be password");
                 }
             }
-        }
+        },
+        tokens:[{
+            token:{
+                type:"string",
+                required:true
+            }
+        }]
     }
 );
+//create method token regarding
+userSchema.methods.getAuthToken = async function (id){
+    const user = this;
+    const token = jwt.sign({_id:id.toString()},"userToken");
+    console.log("create token -->",token);
+    user.tokens = user.tokens.concat({token});
+    await user.save();
+    return token;
+}
 //create static function findCredentials
 userSchema.statics.findCredentials = async (email, password) => {
 

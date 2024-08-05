@@ -128,11 +128,15 @@ router.delete("/users/:id", async (req, res) => {
 router.post("/users/login", async (req, res) => {
     try {
         const user = await userModel.findCredentials(req.body.email, req.body.password);
+        const token = await user.getAuthToken(user._id);
 
         if (!user) {
             res.status(400).send("Not Found");
         }
-        res.status(200).send(user);
+        res.status(200).send({
+            user,
+            token
+        });
 
     } catch (err) {
         res.status(500).send(err.message);

@@ -39,4 +39,17 @@ const passwordManager = async () => {
 
 passwordManager();
 
+//Jeson Web Token :- Use for authentication
+const jwt = require("jsonwebtoken");
+
+const auth = function (){
+    const token = jwt.sign({_id:"saikat12"},'nodejs12');
+    console.log("auth token --> ",token);
+
+    const token_verify = jwt.verify(token,'nodejs12');
+    console.log("token verify -->",token_verify);
+}
+
+auth();
+
 
