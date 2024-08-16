@@ -1,5 +1,6 @@
 const express = require("express");
 const router = new express.Router();
+const auth = require("../middlewares/auth");
 require("../db/mongoose");
 const userModel = require("../models/userModel");
 
@@ -19,7 +20,8 @@ router.post('/users', async (req, res) => {
     try {
         const user = new userModel(req.body);
         const data = await user.save();
-        res.status(201).send(data);
+        const token = await user.getAuthToken(user._id);
+        res.status(201).send({data,token});
 
     } catch (err) {
         res.status(400).send(err);
@@ -45,6 +47,10 @@ router.get('/users', async (req, res) => {
 
     }
 
+})
+//get a authenticated user by help of middleware and token (generate by jwt.)
+router.get("/users/me",auth, (req,res)=>{
+    res.status(200).send(req.user);
 })
 
 //get a specific user by user id
@@ -110,11 +116,10 @@ router.patch('/users/:id', async (req, res) => {
 
 //delete a user
 router.delete("/users/:id", async (req, res) => {
-    console.log("id ", user_id);
     try {
-        const user_delete_data = await userModel.findByIdAndDelete(user_id);
+        const user_delete_data = await userModel.findByIdAndDelete(req.params.id);
         if (!user_delete_data) {
-            return res.status(204)
+            return res.status(204).send()
         }
         res.status(200).send(user_delete_data);
 

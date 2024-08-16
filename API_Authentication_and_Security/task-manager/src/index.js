@@ -11,6 +11,10 @@ const taskRouter = require("./routers/taskRouter");
 
 //parse JSON into javascript obj
 app.use(express.json());
+//self made middleware fn
+// app.use((req,res,next)=>{
+//     res.status(503).send("under maintanance");
+// })
 
 //register routers
 app.use(userRouter);
@@ -26,30 +30,30 @@ app.listen(port, () => {
     e.g -> passwrd => "saikat", encrypt => "jkjsijjir", revers =>"saikat"
 Hashing Algo irrreversible.
 */
-const bcryptjs = require("bcryptjs");
+// const bcryptjs = require("bcryptjs");
 
-const passwordManager = async () => {
+// const passwordManager = async () => {
 
-    let password = "saikat"
-    let hashPassword = await bcryptjs.hash(password, 8);
-    let isMatch = await bcryptjs.compare("saikat!", hashPassword);
-    console.log(hashPassword);
-    console.log("isMatch ", isMatch);
-}
+//     let password = "saikat"
+//     let hashPassword = await bcryptjs.hash(password, 8);
+//     let isMatch = await bcryptjs.compare("saikat!", hashPassword);
+//     console.log(hashPassword);
+//     console.log("isMatch ", isMatch);
+// }
 
-passwordManager();
+// passwordManager();
 
 //Jeson Web Token :- Use for authentication
-const jwt = require("jsonwebtoken");
+// const jwt = require("jsonwebtoken");
 
-const auth = function (){
-    const token = jwt.sign({_id:"saikat12"},'nodejs12');
-    console.log("auth token --> ",token);
+// const auth = function (){
+//     const token = jwt.sign({_id:"saikat12"},'nodejs12');
+//     console.log("auth token --> ",token);
 
-    const token_verify = jwt.verify(token,'nodejs12');
-    console.log("token verify -->",token_verify);
-}
+//     const token_verify = jwt.verify(token,'nodejs12');
+//     console.log("token verify -->",token_verify);
+// }
 
-auth();
+// auth();
 
 
