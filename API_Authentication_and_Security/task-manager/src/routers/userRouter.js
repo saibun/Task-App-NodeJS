@@ -150,4 +150,34 @@ router.post("/users/login", async (req, res) => {
 
 })
 
+//Log out
+router.post('/users/logout',auth,async(req,res)=>{
+    try{
+        req.user.tokens = req.user.tokens.filter((value)=>{
+            return req.token!= value.token;
+        })
+        await req.user.save();
+        res.status(200).send("Loged out")
+
+    }catch(err){
+        res.status(400).send(err.message);
+
+    }
+    
+
+})
+
+//Logged out All sesons
+router.post('/users/logoutAll', auth,async(req,res)=>{
+    try{
+        req.user.tokens = [];
+        await req.user.save();
+        res.status(200).send();
+
+    }catch(err){
+        res.status(400).send(err.message)
+    }
+    
+})
+
 module.exports = router;

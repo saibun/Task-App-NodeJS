@@ -55,6 +55,14 @@ const userSchema = new mongoose.Schema(
         }]
     }
 );
+userSchema.methods.toJSON = function(){
+    //express call JSON.stringfy() by res.send. JSON.stringfy() connected with toJSON().
+    const user = this;
+    const userObject = user.toObject();
+    delete userObject.password;
+    delete userObject.tokens;
+    return userObject;
+}
 //create method token regarding
 userSchema.methods.getAuthToken = async function (id){
     const user = this;
