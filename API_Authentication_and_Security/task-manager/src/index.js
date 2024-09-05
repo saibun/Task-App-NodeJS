@@ -8,6 +8,8 @@ require("./db/mongoose");
 
 const userRouter = require("./routers/userRouter");
 const taskRouter = require("./routers/taskRouter");
+const userAuthRouter = require("./routers/userAuthRouter");
+const taskAuthRouter = require("./routers/taskAuthRouter");
 
 //parse JSON into javascript obj
 app.use(express.json());
@@ -18,7 +20,9 @@ app.use(express.json());
 
 //register routers
 app.use(userRouter);
-app.use(taskRouter);
+//app.use(taskRouter);
+app.use(userAuthRouter);
+app.use(taskAuthRouter)
 
 
 app.listen(port, () => {
@@ -55,5 +59,19 @@ Hashing Algo irrreversible.
 // }
 
 // auth();
+
+//--- A demo of mongooes poplulate
+// const Task = require("./models/taskModel");
+//const User = require("./models/userModel")
+
+//async function main(){
+   // const task = await Task.findById("66d1eac74888777d01b5a83e");
+    //await task.populate('author');
+    //const user = await User.findById("66d2f1673f2451b1d82bcd34");
+    //await user.populate('task');
+    //console.log(user.task);
+    
+//}
+//main();
 
 

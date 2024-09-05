@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 //create task model
-const taskModel = mongoose.model('task',{
+const taskModel = mongoose.model('Task',{
     desc:{
         type:"string",
         default:"",
@@ -13,6 +13,11 @@ const taskModel = mongoose.model('task',{
     completed:{
         type:"boolean",
         default:false,
+    },
+    author:{
+        type:mongoose.Schema.Types.ObjectId,
+        required:true,
+        ref:'User'
     }
 })
 

@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken");
+const taskModel = require("./taskModel");
 
 //create schema
 const userSchema = new mongoose.Schema(
@@ -55,6 +56,12 @@ const userSchema = new mongoose.Schema(
         }]
     }
 );
+//create virtual property
+userSchema.virtual('task',{
+    ref:'Task',
+    localField:'_id',
+    foreignField:'author'
+})
 userSchema.methods.toJSON = function(){
     //express call JSON.stringfy() by res.send. JSON.stringfy() connected with toJSON().
     const user = this;
@@ -99,6 +106,14 @@ userSchema.pre("save", async function (next) {
     next();
 })
 
+//middleware that remove all user's task after delete user
+userSchema.pre("remove", async function (next){
+    const user= this;
+    console.log(user);
+    await taskModel.deleteMany({author:user._id})
+    next();
+    
+})
 
 //create user model 
 const userModel = mongoose.model('User', userSchema);

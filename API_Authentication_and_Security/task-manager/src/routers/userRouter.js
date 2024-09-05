@@ -1,6 +1,5 @@
 const express = require("express");
 const router = new express.Router();
-const auth = require("../middlewares/auth");
 require("../db/mongoose");
 const userModel = require("../models/userModel");
 
@@ -48,12 +47,6 @@ router.get('/users', async (req, res) => {
     }
 
 })
-//get a authenticated user by help of middleware and token (generate by jwt.)
-router.get("/users/me",auth, (req,res)=>{
-    res.status(200).send(req.user);
-})
-
-//get a specific user by user id
 router.get("/users/:id", async (req, res) => {
     const user_given_id = req.params.id;
     // userModel.findById(user_given_id).then((data) => {
@@ -148,36 +141,6 @@ router.post("/users/login", async (req, res) => {
 
     }
 
-})
-
-//Log out
-router.post('/users/logout',auth,async(req,res)=>{
-    try{
-        req.user.tokens = req.user.tokens.filter((value)=>{
-            return req.token!= value.token;
-        })
-        await req.user.save();
-        res.status(200).send("Loged out")
-
-    }catch(err){
-        res.status(400).send(err.message);
-
-    }
-    
-
-})
-
-//Logged out All sesons
-router.post('/users/logoutAll', auth,async(req,res)=>{
-    try{
-        req.user.tokens = [];
-        await req.user.save();
-        res.status(200).send();
-
-    }catch(err){
-        res.status(400).send(err.message)
-    }
-    
 })
 
 module.exports = router;

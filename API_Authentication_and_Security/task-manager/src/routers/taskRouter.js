@@ -17,7 +17,7 @@ router.post('/task', async (req, res) => {
         const data = await task.save();
         res.status(201).send(data);
     } catch (err) {
-        res.status(400).send(err.message);
+        res.status(400).send(err);
     }
 
 
@@ -74,7 +74,6 @@ router.patch('/task/:id', async(req,res)=>{
     }
     try{
         const task = await taskModel.findById(id);
-        console.log(task);
         update_req.forEach((data)=>{
             task[data] = req.body[data];
         })
@@ -100,7 +99,7 @@ router.delete("/task/:id", async(req,res)=>{
     try{
         const task_delete_data = await taskModel.findByIdAndDelete(task_id);
         if(!task_delete_data){
-           return res.status(204).send("Deleted")
+           return res.status(204).send()
         }
         res.status(200).send(task_delete_data);
 
